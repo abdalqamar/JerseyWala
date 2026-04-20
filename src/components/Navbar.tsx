@@ -10,6 +10,7 @@ export default function Navbar() {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
 
   const { user, notifs, logout } = useAuth();
+
   const { cartCount } = useCart();
   const navigate = useNavigate();
   const location = useLocation();
@@ -24,9 +25,13 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    setMenuOpen(false);
-    setNotifOpen(false);
-    setUserMenuOpen(false);
+    const id = setTimeout(() => {
+      setMenuOpen(false);
+      setNotifOpen(false);
+      setUserMenuOpen(false);
+    }, 0);
+
+    return () => clearTimeout(id);
   }, [location.pathname]);
 
   const navLinks = [
@@ -141,7 +146,7 @@ export default function Navbar() {
                   className="font-display font-bold text-sm max-w-20 truncate hidden md:block"
                   style={{ color: isDark ? "#faf8f4" : "#1a1205" }}
                 >
-                  {user.name.split(" ")[0]}
+                  {user?.name}
                 </span>
               </div>
               {userMenuOpen && (

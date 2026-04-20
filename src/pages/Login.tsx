@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthCard from "../components/AuthCard";
-import { useAuth } from "../hooks/useAuth";
+import { signIn } from "../services/authService";
+import toast from "react-hot-toast";
 
 const inputCls =
   "w-full bg-bg border border-border rounded-xl px-4 py-3 text-ink font-body text-sm focus:border-gold focus:shadow-[0_0_0_3px_rgba(196,154,42,0.12)] transition-all";
@@ -14,13 +15,12 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setError("");
     if (!form.email || !form.password) {
       setError("Please fill in all fields.");
@@ -30,12 +30,19 @@ export default function Login() {
       setError("Enter a valid email address.");
       return;
     }
-    setLoading(true);
-    setTimeout(() => {
-      login({ name: form.email.split("@")[0], email: form.email });
-      setLoading(false);
+    try {
+      setLoading(true);
+      await signIn(form.email, form.password);
       navigate("/");
-    }, 1500);
+      toast.success("Logged in successfully!");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Invalid email or password.");
+      }
+      setLoading(false);
+    }
   };
 
   return (

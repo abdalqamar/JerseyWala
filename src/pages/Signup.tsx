@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthCard from "../components/AuthCard";
 import PasswordStrength from "../components/PasswordStrength";
-import { useAuth } from "../hooks/useAuth";
+import { signUp } from "../services/authService";
 
 interface Form {
   name: string;
@@ -27,13 +27,12 @@ export default function Signup() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setError("");
     if (!form.name || !form.email || !form.password || !form.confirm) {
       setError("Please fill in all fields.");
@@ -51,12 +50,18 @@ export default function Signup() {
       setError("Passwords do not match.");
       return;
     }
-    setLoading(true);
-    setTimeout(() => {
-      login({ name: form.name, email: form.email });
+    try {
+      setLoading(true);
+      await signUp(form.email, form.password, form.name);
+      navigate("/login");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Something went wrong.");
+      }
       setLoading(false);
-      navigate("/");
-    }, 1600);
+    }
   };
 
   return (

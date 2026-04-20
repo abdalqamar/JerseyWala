@@ -20,7 +20,7 @@ function PageLoader() {
   );
 }
 
-// Navbar + Footer wala layout
+// Navbar
 function RootLayout() {
   return (
     <div className="bg-bg text-ink min-h-screen">
@@ -35,7 +35,7 @@ function RootLayout() {
   );
 }
 
-// Login / Signup — koi Navbar Footer nahi
+// Login / Signup
 function AuthLayout() {
   return (
     <div className="bg-bg text-ink min-h-screen">
