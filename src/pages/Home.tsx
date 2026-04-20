@@ -21,7 +21,7 @@ export default function Home() {
     search: debouncedSearch,
     category: activeCategory,
   });
-
+  console.log(products);
   const clearSearch = () => setSearchQuery("");
 
   return (

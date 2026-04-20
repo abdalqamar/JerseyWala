@@ -16,16 +16,16 @@ const CartContext = createContext<CartContextType | null>(null);
 export function CartProvider({ children }: { children: ReactNode }) {
   const [cart, setCart] = useState<CartItem[]>([]);
 
-  const cartCount = cart.reduce((s, i) => s + i.qty, 0);
+  const cartCount = cart.reduce((s, i) => s + i.quantity, 0);
 
   const addToCart = (product: Product) =>
     setCart((prev) => {
       const exists = prev.find((i) => i.id === product.id);
       if (exists)
         return prev.map((i) =>
-          i.id === product.id ? { ...i, qty: i.qty + 1 } : i,
+          i.id === product.id ? { ...i, quantity: i.quantity + 1 } : i,
         );
-      return [...prev, { ...product, qty: 1, size: "M" }];
+      return [...prev, { ...product, quantity: 1, size: "M" }];
     });
 
   const removeFromCart = (id: number) =>
@@ -34,7 +34,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const updateQty = (id: number, delta: number) =>
     setCart((prev) =>
       prev.map((i) =>
-        i.id === id ? { ...i, qty: Math.max(1, i.qty + delta) } : i,
+        i.id === id ? { ...i, quantity: Math.max(1, i.quantity + delta) } : i,
       ),
     );
 

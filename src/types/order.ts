@@ -1,9 +1,15 @@
-export type OrderStatus = "processing" | "shipped" | "delivered" | "cancelled";
+export type OrderStatus =
+  | "processing"
+  | "shipped"
+  | "delivered"
+  | "cancelled"
+  | "failed";
+
 export interface OrderItem {
   name: string;
   quantity: number;
   price: number;
-  img: string;
+  image: string;
 }
 
 export interface Order {

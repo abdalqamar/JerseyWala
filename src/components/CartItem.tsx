@@ -18,7 +18,7 @@ export default function CartItem({ item, index }: Props) {
     >
       {/* Image */}
       <img
-        src={item.img}
+        src={item.image}
         alt={item.name}
         className="w-24 h-24 object-cover rounded-xl bg-bg-2 shrink-0"
       />
@@ -45,17 +45,17 @@ export default function CartItem({ item, index }: Props) {
         {/* Size + Qty + Price */}
         <div className="flex items-center gap-4 mt-3 flex-wrap">
           {/* Size */}
-          <div className="flex gap-1.5">
+          <div className="flex gap-1.5 overflow-x-auto">
             {SIZES.map((s) => (
               <button
                 key={s}
                 onClick={() => updateSize(item.id, s)}
-                className={`w-8 h-8 rounded-lg border font-display font-bold text-[11px] transition-all
-                  ${
-                    item.size === s
-                      ? "bg-ink border-ink text-bg"
-                      : "bg-transparent border-border-2 text-ink-3 hover:border-ink hover:text-ink"
-                  }`}
+                className={`shrink-0 w-6 h-6 sm:w-8 sm:h-8 rounded-lg border font-display font-bold text-[9px] sm:text-[11px] transition-all
+        ${
+          item.size === s
+            ? "bg-ink border-ink text-bg"
+            : "bg-transparent border-border-2 text-ink-3 hover:border-ink hover:text-ink"
+        }`}
               >
                 {s}
               </button>
@@ -71,7 +71,7 @@ export default function CartItem({ item, index }: Props) {
               −
             </button>
             <span className="w-9 text-center font-display font-black text-ink text-sm">
-              {item.qty}
+              {item.quantity}
             </span>
             <button
               onClick={() => updateQty(item.id, 1)}
@@ -83,7 +83,7 @@ export default function CartItem({ item, index }: Props) {
 
           {/* Price */}
           <span className="text-gold font-display font-black text-lg ml-auto">
-            ₹{item.price * item.qty}
+            ₹{item.price * item.quantity}
           </span>
         </div>
       </div>

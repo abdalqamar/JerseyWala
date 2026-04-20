@@ -4,15 +4,16 @@ export type Size = "S" | "M" | "L" | "XL" | "XXL";
 export interface Product {
   id: number;
   name: string;
+  description: string;
   season: string;
   price: number;
-  original: number;
+  original_price: number;
   badge: Badge;
   club: string;
-  img: string;
+  image: string;
 }
 
 export interface CartItem extends Product {
-  qty: number;
+  quantity: number;
   size: Size;
 }

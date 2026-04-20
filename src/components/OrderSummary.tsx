@@ -8,30 +8,32 @@ interface Props {
 
 export default function OrderSummary({ cart, shipping, total }: Props) {
   return (
-    <div className="bg-card border border-border rounded-2xl p-5 sticky top-20">
+    <div className="bg-card border border-border rounded-2xl p-5">
       <h3 className="font-display font-black text-ink text-base mb-4 tracking-wide">
         ORDER SUMMARY
       </h3>
 
       {/* Items */}
-      <div className="space-y-3 mb-4">
+      <div className="space-y-4 mb-4">
         {cart.map((item) => (
-          <div key={item.id} className="flex items-center gap-3">
+          <div key={item.id} className="flex items-start gap-2 p-2 rounded-xl">
             <img
-              src={item.img}
+              src={item.image}
               alt={item.name}
-              className="w-12 h-12 rounded-lg object-cover bg-bg-2 shrink-0"
+              className="w-12 h-12 rounded-lg object-cover shrink-0"
             />
+
             <div className="flex-1 min-w-0">
-              <p className="font-display font-bold text-ink text-xs leading-tight truncate">
+              <p className="font-display font-bold text-ink text-xs truncate">
                 {item.name}
               </p>
               <p className="font-body text-ink-4 text-[10px]">
-                Size: {item.size} × {item.qty}
+                Size: {item.size} × {item.quantity}
               </p>
             </div>
+
             <span className="font-display font-black text-gold text-sm shrink-0">
-              ₹{item.price * item.qty}
+              ₹{item.price * item.quantity}
             </span>
           </div>
         ))}

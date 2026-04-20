@@ -6,7 +6,7 @@ import { useCart } from "../hooks/useCart";
 export default function Cart() {
   const { cart, clearCart } = useCart();
 
-  const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  const subtotal = cart.reduce((s, i) => s + i.price * i.quantity, 0);
   const shipping = subtotal >= 999 ? 0 : 99;
   const total = subtotal + shipping;
 
@@ -30,7 +30,7 @@ export default function Cart() {
     );
 
   return (
-    <div className="min-h-screen bg-bg pt-10 pb-16 px-6">
+    <div className="min-h-screen bg-bg pt-24 pb-16 px-6">
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         <h1 className="font-display font-black text-ink text-4xl md:text-5xl mb-2">
@@ -40,9 +40,9 @@ export default function Cart() {
           {cart.length} item{cart.length !== 1 ? "s" : ""} in your cart
         </p>
 
-        <div className="flex gap-7 flex-wrap lg:flex-nowrap">
+        <div className="flex gap-7 flex-wrap lg:flex-nowrap items-start">
           {/* Cart Items */}
-          <div className="flex-2 min-w-0 w-full">
+          <div className="flex-1 min-w-0 w-full">
             {cart.map((item, idx) => (
               <div key={item.id} className="mb-4">
                 <CartItem item={item} index={idx} />
@@ -57,7 +57,8 @@ export default function Cart() {
           </div>
 
           {/* Summary */}
-          <div className="w-full lg:w-72 shrink-0">
+
+          <div className="w-full lg:w-72 shrink-0 sticky top-24 self-start">
             <OrderSummary cart={cart} shipping={shipping} total={total} />
             <Link
               to="/checkout"

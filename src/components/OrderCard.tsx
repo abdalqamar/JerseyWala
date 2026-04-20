@@ -17,13 +17,20 @@ const statusStyle: Record<
     icon: "✅",
   },
   failed: { label: "Failed", cls: "bg-error-bg text-error", icon: "❌" },
+  cancelled: {
+    label: "Cancelled",
+    cls: "bg-ink-2 text-ink-4",
+    icon: "✖️",
+  },
 };
 
 const TIMELINE = ["Ordered", "Processing", "Shipped", "Delivered"];
+
 const statusRank: Record<OrderStatus, number> = {
   processing: 1,
   shipped: 2,
   delivered: 3,
+  cancelled: 0,
   failed: 0,
 };
 
@@ -80,7 +87,7 @@ export default function OrderCard({
           {order.items.map((item, i) => (
             <div key={i} className="flex items-center gap-4 mb-4">
               <img
-                src={item.img}
+                src={item.image}
                 alt={item.name}
                 className="w-14 h-14 rounded-xl object-cover bg-bg-2 shrink-0"
               />
